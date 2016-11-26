@@ -35,14 +35,14 @@ Instructions
 
 1. Run the container
 
-    dockerip=$(ip addr | grep inet.*docker|awk '{print $2}'|awk -F/ '{print $1}')
-    pulse_socket=(tcp:$dockerip:$((pax11publish || xprop -root PULSE_SERVER)|grep -Eo 'tcp:[^ ]*'|awk -F: '{print $3}'))
+        dockerip=$(ip addr | grep inet.*docker|awk '{print $2}'|awk -F/ '{print $1}')
+        pulse_socket=(tcp:$dockerip:$((pax11publish || xprop -root PULSE_SERVER)|grep -Eo 'tcp:[^ ]*'|awk -F: '{print $3}'))
 
-    docker run -d --name=browser \
-        -h browser.localdomain \
-        -v /tmp/.X11-unix:/tmp/.X11-unix \
-        -e DISPLAY -e PULSE_SERVER=$pulse_socket -e PULSE_COOKIE=/run/pulse/cookie \
-        -v ~/.config/pulse/cookie:/run/pulse/cookie \
-        -v chromium_home:/home/user \
-        --user user predkambrij/browser
+        docker run -d --name=browser \
+            -h browser.localdomain \
+            -v /tmp/.X11-unix:/tmp/.X11-unix \
+            -e DISPLAY -e PULSE_SERVER=$pulse_socket -e PULSE_COOKIE=/run/pulse/cookie \
+            -v ~/.config/pulse/cookie:/run/pulse/cookie \
+            -v chromium_home:/home/user \
+            --user user predkambrij/browser
 
