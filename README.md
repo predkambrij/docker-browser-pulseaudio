@@ -37,6 +37,7 @@ Instructions
 
     dockerip=$(ip addr | grep inet.*docker|awk '{print $2}'|awk -F/ '{print $1}')
     pulse_socket=(tcp:$dockerip:$((pax11publish || xprop -root PULSE_SERVER)|grep -Eo 'tcp:[^ ]*'|awk -F: '{print $3}'))
+
     docker run -d --name=browser \
         -h browser.localdomain \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
