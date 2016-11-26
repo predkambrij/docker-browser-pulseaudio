@@ -7,7 +7,7 @@ ARG ARG_GID
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
-    apt-get install -y chromium-browser pulseaudio sudo && \
+    apt-get install -y fonts-liberation chromium-browser pulseaudio sudo && \
     \
     echo "user:x:${ARG_UID}:${ARG_GID}:User,,,:/home/user:/bin/bash" >> /etc/passwd && \
     echo "user:x:${ARG_UID}:" >> /etc/group && \
