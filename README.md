@@ -39,6 +39,7 @@ Instructions
         pulse_socket=(tcp:$dockerip:$((pax11publish || xprop -root PULSE_SERVER)|grep -Eo 'tcp:[^ ]*'|awk -F: '{print $3}'))
 
         docker run -d --name=browser \
+            --shm-size=512m \
             -h browser.localdomain \
             -v /tmp/.X11-unix:/tmp/.X11-unix \
             -e DISPLAY -e PULSE_SERVER=$pulse_socket -e PULSE_COOKIE=/run/pulse/cookie \
