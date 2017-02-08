@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.10
 MAINTAINER Alojzij Blatnik
 
 ARG ARG_UID
@@ -8,7 +8,10 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
     apt-get install -y fonts-liberation chromium-browser pulseaudio sudo wget && \
-    wget https://fpdownload.adobe.com/pub/flashplayer/pdc/23.0.0.207/flash_player_ppapi_linux.x86_64.tar.gz -P /tmp && \
+    \
+#   http://labs.adobe.com/downloads/flashplayer.html
+    wget https://fpdownload.macromedia.com/pub/labs/flashruntimes/flashplayer/linux64/flash_player_ppapi_linux.x86_64.tar.gz -P /tmp && \
+#    wget https://fpdownload.adobe.com/pub/flashplayer/pdc/23.0.0.207/flash_player_ppapi_linux.x86_64.tar.gz -P /tmp && \
     mkdir /flash/ && \
     tar xzf /tmp/flash_player_ppapi_linux.x86_64.tar.gz -C /flash/ && \
     \
