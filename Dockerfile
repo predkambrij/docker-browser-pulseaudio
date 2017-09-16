@@ -1,4 +1,4 @@
-FROM ubuntu:16.10
+FROM ubuntu:17.04
 MAINTAINER Alojzij Blatnik
 
 ARG ARG_UID
