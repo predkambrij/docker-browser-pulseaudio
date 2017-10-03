@@ -31,7 +31,7 @@ Instructions
 
 1. Build the container
 
-        docker build --build-arg ARG_UID=$(id -u) --build-arg ARG_GID=$(id -g) -t predkambrij/browser .
+        docker build --build-arg TIMEZONE="Europe/Ljubljana" --build-arg ARG_UID="$(id -u)" --build-arg ARG_GID="$(id -g)" -t predkambrij/browser .
 
 1. Run the container
 

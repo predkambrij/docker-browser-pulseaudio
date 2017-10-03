@@ -1,17 +1,20 @@
-FROM ubuntu:17.04
+FROM ubuntu:17.10
 MAINTAINER Alojzij Blatnik
 
 ARG ARG_UID
 ARG ARG_GID
+ARG TIMEZONE
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && \
-    apt-get install -y fonts-liberation chromium-browser pulseaudio sudo wget && \
+RUN \
+    apt-get update && \
+    apt-get install -y fonts-liberation chromium-browser pulseaudio sudo wget tzdata && \
     \
-#   http://labs.adobe.com/downloads/flashplayer.html
+    echo "${TIMEZONE}" > /etc/timezone && \
+    dpkg-reconfigure -f noninteractive tzdata && \
+    \
     wget https://fpdownload.macromedia.com/pub/labs/flashruntimes/flashplayer/linux64/flash_player_ppapi_linux.x86_64.tar.gz -P /tmp && \
-#    wget https://fpdownload.adobe.com/pub/flashplayer/pdc/23.0.0.207/flash_player_ppapi_linux.x86_64.tar.gz -P /tmp && \
     mkdir /flash/ && \
     tar xzf /tmp/flash_player_ppapi_linux.x86_64.tar.gz -C /flash/ && \
     \
