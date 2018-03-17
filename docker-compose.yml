@@ -1,0 +1,26 @@
+version: '2'
+services:
+  browser:
+    privileged: false
+    image: predkambrij/browser:mar17
+    build:
+      context: .
+      args:
+        ARG_UID: ${ARG_UID}
+        ARG_GID: ${ARG_GID}
+    hostname: "browser.localdomain"
+    shm_size: 4096M
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - DISPLAY
+      - PULSE_SERVER=$pulse_socket
+      - PULSE_COOKIE=/run/pulse/cookie
+    volumes:
+      - chromium_home:/home/user
+      - ~/Downloads:/home/user/Downloads
+      - ~/.config/pulse/cookie:/run/pulse/cookie
+      - /tmp/.X11-unix:/tmp/.X11-unix
+
+volumes:
+  chromium_home:
