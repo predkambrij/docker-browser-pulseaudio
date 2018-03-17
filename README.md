@@ -23,27 +23,20 @@ Instructions
 
    > Cookie: ReallyLongAlphanumericString
 
-1. [Install Docker](http://docs.docker.io/en/latest/installation/) if you haven't already
+1. Install [Docker](http://docs.docker.io/en/latest/installation/) and [Docker Compose](https://docs.docker.com/compose/) if you haven't already
 
 1. Clone this repository and get right in there
 
         git clone https://github.com/predkambrij/docker-chromium-pulseaudio.git && cd docker-chromium-pulseaudio
 
+1. Prepare .env
+
+        bash build_env.sh
+
 1. Build the container
 
-        docker build --build-arg TIMEZONE="Europe/Ljubljana" --build-arg ARG_UID="$(id -u)" --build-arg ARG_GID="$(id -g)" -t predkambrij/browser .
+        docker-compose build browser
 
 1. Run the container
 
-        dockerip=$(ip addr | grep inet.*docker|awk '{print $2}'|awk -F/ '{print $1}')
-        pulse_socket=(tcp:$dockerip:$((pax11publish || xprop -root PULSE_SERVER)|grep -Eo 'tcp:[^ ]*'|awk -F: '{print $3}'))
-
-        docker run -d --name=browser \
-            --shm-size=512m \
-            -h browser.localdomain \
-            -v /tmp/.X11-unix:/tmp/.X11-unix \
-            -e DISPLAY -e PULSE_SERVER=$pulse_socket -e PULSE_COOKIE=/run/pulse/cookie \
-            -v ~/.config/pulse/cookie:/run/pulse/cookie \
-            -v chromium_home:/home/user \
-            --user user predkambrij/browser
-
+        docker-compose up -d browser
