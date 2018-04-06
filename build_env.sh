@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 dockerip=$(ip addr | grep inet.*docker|awk '{print $2}'|awk -F/ '{print $1}')
 pulse_socket=(tcp:$dockerip:$((pax11publish || xprop -root PULSE_SERVER)|grep -Eo 'tcp:[^ ]*'|awk -F: '{print $3}'))
 

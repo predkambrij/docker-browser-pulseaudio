@@ -31,7 +31,7 @@ Instructions
 
 1. Prepare .env
 
-        bash build_env.sh
+        ./build_env.sh
 
 1. Build the container
 
