@@ -14,12 +14,11 @@ services:
       - SYS_ADMIN
     environment:
       - DISPLAY
-      - PULSE_SERVER=$pulse_socket
-      - PULSE_COOKIE=/run/pulse/cookie
+      - PULSE_SERVER=/run/pulse/native
     volumes:
       - chromium_home:/home/user
       - ~/Downloads:/home/user/Downloads
-      - ~/.config/pulse/cookie:/run/pulse/cookie
+      - $pulse_socket:/run/pulse/native
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /etc/localtime:/etc/localtime:ro
 
