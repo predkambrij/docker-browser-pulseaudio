@@ -2,7 +2,7 @@ version: '2'
 services:
   browser:
     privileged: false
-    image: predkambrij/browser:mar17
+    image: predkambrij/browser:25.2.2019
     build:
       context: .
       args:
