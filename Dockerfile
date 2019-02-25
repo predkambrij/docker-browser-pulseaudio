@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:18.10
 MAINTAINER Alojzij Blatnik
 
 ARG ARG_UID
@@ -15,13 +15,13 @@ RUN \
     \
     apt-get update && \
     apt-get install -y \
+        fonts-roboto \
+        fonts-symbola \
         fonts-liberation \
         chromium-browser \
         pulseaudio \
         wget \
         tzdata \
-        fonts-roboto \
-        fonts-symbola \
         hicolor-icon-theme \
         libcanberra-gtk-module \
         libexif-dev \
