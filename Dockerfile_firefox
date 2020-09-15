@@ -1,4 +1,4 @@
-FROM ubuntu:18.10
+FROM ubuntu:20.04
 MAINTAINER Alojzij Blatnik
 
 ARG ARG_UID
@@ -18,7 +18,8 @@ RUN \
         fonts-roboto \
         fonts-symbola \
         fonts-liberation \
-        chromium-browser \
+        firefox \
+        ubuntu-restricted-extras \
         pulseaudio \
         wget \
         tzdata \
@@ -34,11 +35,11 @@ RUN \
     echo "${TIMEZONE}" > /etc/timezone && \
     dpkg-reconfigure -f noninteractive tzdata && \
     \
-    wget https://fpdownload.macromedia.com/pub/labs/flashruntimes/flashplayer/linux64/flash_player_ppapi_linux.x86_64.tar.gz -P /tmp && \
-    mkdir /flash/ && \
-    tar xzf /tmp/flash_player_ppapi_linux.x86_64.tar.gz -C /flash/
+    rm /usr/share/fonts/truetype/roboto/unhinted/RobotoCondensed-* && \
+    rm /usr/share/fonts/truetype/liberation/LiberationSansNarrow-*
 
 USER user
+
 VOLUME ["/home/user"]
-CMD ["/usr/bin/chromium-browser", "--ppapi-flash-path=/flash/libpepflashplayer.so", "--ppapi-flash-version"]
+CMD /usr/bin/firefox
 

@@ -1,14 +1,16 @@
-version: '2'
+version: "2"
 services:
-  browser:
+  chrome:
     privileged: false
-    image: predkambrij/browser:25.2.2019
+    image: predkambrij/chrome:14.9.2020
     build:
+      dockerfile: Dockerfile_chrome
       context: .
       args:
         ARG_UID: ${ARG_UID}
         ARG_GID: ${ARG_GID}
-    hostname: "browser.localdomain"
+    hostname: "chrome.localdomain"
+    network_mode: host
     shm_size: 4096M
     cap_add:
       - SYS_ADMIN
@@ -17,11 +19,37 @@ services:
       - PULSE_SERVER=$pulse_socket
       - PULSE_COOKIE=/run/pulse/cookie
     volumes:
-      - chromium_home:/home/user
+      - chrome_home:/home/user
+      - ~/Downloads:/home/user/Downloads
+      - ~/.config/pulse/cookie:/run/pulse/cookie
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /etc/localtime:/etc/localtime:ro
+
+  firefox:
+    privileged: false
+    image: predkambrij/firefox:14.9.2020
+    build:
+      dockerfile: Dockerfile_firefox
+      context: .
+      args:
+        ARG_UID: ${ARG_UID}
+        ARG_GID: ${ARG_GID}
+    network_mode: host
+    hostname: "firefox.localdomain"
+    shm_size: 4096M
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - DISPLAY
+      - PULSE_SERVER=$pulse_socket
+      - PULSE_COOKIE=/run/pulse/cookie
+    volumes:
+      - firefox_home:/home/user
       - ~/Downloads:/home/user/Downloads
       - ~/.config/pulse/cookie:/run/pulse/cookie
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /etc/localtime:/etc/localtime:ro
 
 volumes:
-  chromium_home:
+  chrome_home:
+  firefox_home:
