@@ -49,7 +49,31 @@ services:
       - ~/.config/pulse/cookie:/run/pulse/cookie
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /etc/localtime:/etc/localtime:ro
+  chromium:
+    privileged: false
+    image: predkambrij/chromium:25.2.2019
+    build:
+      dockerfile: Dockerfile_chromium
+      context: .
+      args:
+        ARG_UID: ${ARG_UID}
+        ARG_GID: ${ARG_GID}
+    hostname: "chromium.localdomain"
+    shm_size: 4096M
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - DISPLAY
+      - PULSE_SERVER=$pulse_socket
+      - PULSE_COOKIE=/run/pulse/cookie
+    volumes:
+      - chromium_home:/home/user
+      - ~/Downloads:/home/user/Downloads
+      - ~/.config/pulse/cookie:/run/pulse/cookie
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /etc/localtime:/etc/localtime:ro
 
 volumes:
   chrome_home:
+  chromium_home:
   firefox_home:
